@@ -1,17 +1,17 @@
 package kr.co.dozn.org_api_server.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import kr.co.dozn.org_api_server.model.ApiRepInfo;
-import kr.co.dozn.org_api_server.model.ApiReqInfo;
+import kr.co.dozn.org_api_server.model.FirmInqBeneRepLayer;
+import kr.co.dozn.org_api_server.model.FirmInqBeneReqLayer;
 import kr.co.dozn.org_api_server.service.OrgApiService;
 import kr.co.dozn.org_api_server.util.net.OrgApiTcpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.Socket;
 
+@Service
 public class OrgApiServiceImpl implements OrgApiService {
 
     @Value("${van.ip}")
@@ -30,21 +30,24 @@ public class OrgApiServiceImpl implements OrgApiService {
     private OrgApiTcpUtil orgApiTcpUtil;
 
     private String jsonString;
-    private ApiRepInfo apiRepInfo;
+    private FirmInqBeneRepLayer rep;
 
     @Override
-    public ApiRepInfo execInquireBeneficiary(ApiReqInfo info) throws Exception {
+    public FirmInqBeneRepLayer execInquireBeneficiary(FirmInqBeneReqLayer req) throws Exception {
 
         try {
             ObjectMapper mapper = new ObjectMapper();
             String msg = null;
-            jsonString = String.valueOf(info);
-            msg = orgApiTcpUtil.tcpTransfer(ip, port, timeout, charset, jsonString);
-            apiRepInfo = mapper.readValue(msg, ApiRepInfo.class);
+            String inqBeneString = req.toString();
+            System.out.println("inqBeneString : " + inqBeneString);
+//            jsonString = String.valueOf(req);
+//            msg = orgApiTcpUtil.tcpTransfer(ip, port, timeout, charset, jsonString);
+            msg = orgApiTcpUtil.tcpTransfer(ip, port, timeout, charset, inqBeneString);
+            rep = mapper.readValue(msg, FirmInqBeneRepLayer.class);
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
 
-        return apiRepInfo;
+        return rep;
     }
 }

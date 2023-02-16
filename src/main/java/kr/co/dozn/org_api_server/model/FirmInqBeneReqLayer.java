@@ -2,8 +2,8 @@ package kr.co.dozn.org_api_server.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 @Getter
 @Setter
@@ -49,8 +49,30 @@ public class FirmInqBeneReqLayer {
         this.setRemittanceType("");
     }
 
-    @SuppressWarnings("static-access")
-    public String toString(){
-        return new ToStringBuilder(this).reflectionToString (this, ToStringStyle.SHORT_PREFIX_STYLE);
+    @Override
+    public String toString() {
+        return "{" +
+                "clientMessageId=" + clientMessageId +
+                ",transactionId=" + transactionId +
+                ",orgCode=" + orgCode +
+                ",providerId=" + providerId +
+                ",merchantId=" + merchantId +
+                ",serviceId=" + serviceId +
+                ",sendDT=" + sendDT +
+                ",channelId=" + channelId +
+                ",walletId=" + walletId +
+                ",debitBankId=" + debitBankId +
+                ",processedRecord=" + processedRecord +
+                ",debitResourceNumber=" + debitResourceNumber +
+                ",creditBankId=" + creditBankId +
+                ",creditType=" + creditType +
+                ",creditResourceNumber=" + creditResourceNumber +
+                ",remittanceType=" + remittanceType +
+                "}";
     }
+
+    //    @SuppressWarnings("static-access")
+//    public String toString(){
+//        return new ToStringBuilder(this).reflectionToString (this, ToStringStyle.JSON_STYLE);
+//    }
 }

@@ -3,6 +3,7 @@ package kr.co.dozn.org_api_server.util.net;
 import kr.co.dozn.org_api_server.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+@Service
 public class OrgApiTcpUtil {
 
     private final Logger VANTRANSLOG = LoggerFactory.getLogger("VANTRANSLOG");
@@ -23,7 +25,7 @@ public class OrgApiTcpUtil {
         PrintWriter pw = null;
         BufferedReader br = null;
 
-        char[] length = new char[4];
+        char[] length = new char[5];
         int intMsgLength = 0;
         char[] receive = null;
         int readByte = 0;
@@ -59,12 +61,18 @@ public class OrgApiTcpUtil {
 
             /* ToDo : 자릿수 확인요망 */
             pw.println(StringUtil.getStringSize(Integer.toString(msg.getBytes(charSet).length), "0", 5, StringUtil.FILL_LEFT) + msg);
+            pw.println(msg);
+            VANTRANSLOG.info("[SEND : Length]" + msg);
             pw.flush();
 
             //length read
             /* ToDo : 자릿수 확인요망 */
             br.read(length, 0, 5);
-            intMsgLength = Integer.parseInt(String.valueOf(length));
+            String line = br.lines().toString();
+            System.out.println(line);
+            intMsgLength = line.length();
+            System.out.println(intMsgLength);
+//            intMsgLength = Integer.parseInt(String.valueOf(length));
 
             if (intMsgLength != 0) {
                 receive = new char[intMsgLength];

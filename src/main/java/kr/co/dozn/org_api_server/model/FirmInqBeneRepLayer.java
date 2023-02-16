@@ -2,8 +2,8 @@ package kr.co.dozn.org_api_server.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 @Getter
 @Setter
@@ -20,6 +20,7 @@ public class FirmInqBeneRepLayer {
     private Integer processedRecord;
     private String creditBankId;
     private String creditName;
+    private Integer status;
 
     public FirmInqBeneRepLayer() {
         init();
@@ -41,6 +42,6 @@ public class FirmInqBeneRepLayer {
 
     @SuppressWarnings("static-access")
     public String toString(){
-        return new ToStringBuilder(this).reflectionToString (this, ToStringStyle.SHORT_PREFIX_STYLE);
+        return new ToStringBuilder(this).reflectionToString (this, ToStringStyle.JSON_STYLE);
     }
 }
