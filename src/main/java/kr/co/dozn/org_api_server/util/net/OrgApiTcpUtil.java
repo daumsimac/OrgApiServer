@@ -60,7 +60,7 @@ public class OrgApiTcpUtil {
             VANTRANSLOG.info("[SEND]" + msg);
 
             /* ToDo : 자릿수 확인요망 */
-            pw.println(StringUtil.getStringSize(Integer.toString(msg.getBytes(charSet).length), "0", 5, StringUtil.FILL_LEFT) + msg);
+//            pw.println(StringUtil.getStringSize(Integer.toString(msg.getBytes(charSet).length), "0", 5, StringUtil.FILL_LEFT) + msg);
             pw.println(msg);
             VANTRANSLOG.info("[SEND : Length]" + msg);
             pw.flush();
@@ -68,12 +68,7 @@ public class OrgApiTcpUtil {
             //length read
             /* ToDo : 자릿수 확인요망 */
             br.read(length, 0, 5);
-            String line = br.lines().toString();
-            System.out.println(line);
-            intMsgLength = line.length();
-            System.out.println(intMsgLength);
-//            intMsgLength = Integer.parseInt(String.valueOf(length));
-
+            intMsgLength = Integer.parseInt(String.valueOf(length));
             if (intMsgLength != 0) {
                 receive = new char[intMsgLength];
 

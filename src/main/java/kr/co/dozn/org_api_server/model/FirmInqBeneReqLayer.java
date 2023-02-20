@@ -49,30 +49,8 @@ public class FirmInqBeneReqLayer {
         this.setRemittanceType("");
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                "clientMessageId=" + clientMessageId +
-                ",transactionId=" + transactionId +
-                ",orgCode=" + orgCode +
-                ",providerId=" + providerId +
-                ",merchantId=" + merchantId +
-                ",serviceId=" + serviceId +
-                ",sendDT=" + sendDT +
-                ",channelId=" + channelId +
-                ",walletId=" + walletId +
-                ",debitBankId=" + debitBankId +
-                ",processedRecord=" + processedRecord +
-                ",debitResourceNumber=" + debitResourceNumber +
-                ",creditBankId=" + creditBankId +
-                ",creditType=" + creditType +
-                ",creditResourceNumber=" + creditResourceNumber +
-                ",remittanceType=" + remittanceType +
-                "}";
+        @SuppressWarnings("static-access")
+    public String toString(){
+        return new ToStringBuilder(this).reflectionToString (this, ToStringStyle.JSON_STYLE);
     }
-
-    //    @SuppressWarnings("static-access")
-//    public String toString(){
-//        return new ToStringBuilder(this).reflectionToString (this, ToStringStyle.JSON_STYLE);
-//    }
 }
